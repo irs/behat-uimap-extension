@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file is part of the Behat UI map extension.
+  (c) 2013 Vadim Kusakin <vadim.irbis@gmail.com>
+ 
+  For the full copyright and license information, please view the LICENSE
+  file that was distributed with this source code.
+ -->
+<schema targetNamespace="urn:magento:uimap-page" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:p="urn:magento:uimap-page">
+
+    <complexType name="Page">
+        <annotation>
+            <documentation>UI map page.</documentation>
+        </annotation>
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <element name="tab" type="p:Tab"></element>
+            <element name="fieldset" type="p:Fieldset"></element>
+            <element name="field" type="p:Element"></element>
+            <element name="select" type="p:Element"></element>
+            <element name="button" type="p:Element"></element>
+            <element name="checkbox" type="p:Element"></element>
+            <element name="element" type="p:Element"></element>
+            <element name="link" type="p:Element"></element>
+        </choice>
+        <attribute name="key" type="string" use="optional"></attribute>
+        <attribute name="title" type="string" use="optional"></attribute>
+        <attribute name="url" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="Element">
+        <annotation>
+            <documentation>Base type for all other fields, select, etc.</documentation>
+        </annotation>
+        <attribute name="key" type="string" use="required"></attribute>
+        <attribute name="xpath" type="string" use="required"></attribute>
+    </complexType>
+
+    <complexType name="Fieldset">
+        <annotation>
+            <documentation>UI map fieldset.</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="p:Element">
+                <choice minOccurs="0" maxOccurs="unbounded">
+                    <element name="field" type="p:Element"></element>
+                    <element name="select" type="p:Element"></element>
+                    <element name="button" type="p:Element"></element>
+                    <element name="checkbox" type="p:Element"></element>
+                    <element name="element" type="p:Element"></element>
+                    <element name="link" type="p:Element"></element>
+                </choice>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Tab">
+        <annotation>
+            <documentation>Group of elements and fildsets; abstraction of tabs (in admin panel for example).</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="p:Element">
+                <choice minOccurs="0" maxOccurs="unbounded">
+                    <element name="fieldset" type="p:Fieldset"></element>
+                    <element name="field" type="p:Element"></element>
+                    <element name="select" type="p:Element"></element>
+                    <element name="button" type="p:Element"></element>
+                    <element name="checkbox" type="p:Element"></element>
+                    <element name="element" type="p:Element"></element>
+                    <element name="link" type="p:Element"></element>
+                </choice>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <element name="page" type="p:Page"></element>
+</schema>

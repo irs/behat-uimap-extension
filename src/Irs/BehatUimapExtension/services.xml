@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!--
+  This file is part of the Behat UI map extension.
+  (c) 2013 Vadim Kusakin <vadim.irbis@gmail.com>
+ 
+  For the full copyright and license information, please view the LICENSE
+  file that was distributed with this source code.
+ -->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+
+        <parameter key="irs.uimap.context.initializer.class">Irs\BehatUimapExtension\Context\UimapContextInitializer</parameter>
+        <parameter key="irs.uimap.selector.class">Irs\BehatUimapExtension\UimapSelector</parameter>
+        <parameter key="irs.uimap.page.source.cache.adapter.class">Zend\Cache\Storage\Adapter\Filesystem</parameter>
+        <parameter key="irs.uimap.page.source.taf.class">Irs\BehatUimapExtension\PageSource\TafSource</parameter>
+        <parameter key="irs.uimap.page.source.taf.paths" type="collection"/>
+        <parameter key="irs.uimap.page.source.taf.strict">0</parameter>
+        
+        <parameter key="behat.mink.session.class">Irs\BehatUimapExtension\Session</parameter>
+        
+    </parameters>
+    <services>
+
+        <service id="irs.uimap.selector" class="%irs.uimap.selector.class%">
+            <argument type="service" id="irs.uimap.page.source.taf"/>
+            <tag name="behat.mink.selector" alias="uimap"/>
+        </service>
+
+        <service id="irs.uimap.page.source.taf" class="%irs.uimap.page.source.taf.class%">
+            <argument>%irs.uimap.page.source.taf.paths%</argument>
+            <argument>%irs.uimap.page.source.taf.strict%</argument>
+            <call method="setCache">
+                <argument type="service" id="irs.uimap.page.source.cache.adapter"/>
+            </call>
+        </service>
+
+        <service id="irs.uimap.context.initializer" class="%irs.uimap.context.initializer.class%">
+            <argument type="service" id="irs.uimap.page.source.taf"/>
+            <tag name="behat.context.initializer"/>
+        </service>
+
+        <service id="irs.uimap.page.source.cache.adapter" class="%irs.uimap.page.source.cache.adapter.class%"/>
+
+    </services>
+</container>

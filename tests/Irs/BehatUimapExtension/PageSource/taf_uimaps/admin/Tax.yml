@@ -1,0 +1,388 @@
+#
+# Magento
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Academic Free License (AFL 3.0)
+# that is bundled with this package in the file LICENSE_AFL.txt.
+# It is also available through the world-wide-web at this URL:
+# http://opensource.org/licenses/afl-3.0.php
+# If you did not receive a copy of the license and are unable to
+# obtain it through the world-wide-web, please send an email
+# to license@magentocommerce.com so we can send you a copy immediately.
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade Magento to newer
+# versions in the future. If you wish to customize Magento for your
+# needs please refer to http://www.magentocommerce.com for more information.
+#
+# @category    tests
+# @package     selenium
+# @subpackage  uimaps
+# @author      Magento Core Team <core@magentocommerce.com>
+# @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+# @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+#
+---
+# Customer Tax Class and related pages
+# 'Manage Customers Tax Classes' page
+manage_customer_tax_class:
+    mca: tax_class_customer/
+    click_xpath: //ul[@id='nav']//a[contains(@href, 'tax_class_customer')]
+    title: Customer Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &searchCustomerTaxClassGrid
+            fieldsets:
+                -
+                    manage_customer_tax_class:
+                        xpath: //div[@id='taxClassGrid']
+                        buttons:
+                            reset_filter: //button[span='Reset Filter']
+                            search: //button[span='Search']
+                        fields:
+                            customer_class_name: //input[@id='filter_class_name']
+        buttons:
+            add_new: //button[span='Add New']
+            delete_class: //button[span='Delete Class']
+        messages:
+            success_saved_tax_class: //div[@id='messages']//li[span='The tax class has been saved.']
+            success_deleted_tax_class: //div[@id='messages']//li[span='The tax class has been deleted.']
+        pageelements:
+            tax_class_name: //table[@id='taxClassGrid_table']//tr//td[normalize-space(text())='%customerTaxClassName%']
+
+# 'New Customer Tax Class' Page
+create_customer_tax_class:
+    mca: tax_class_customer/new/
+    title: New Class / Customer Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &newCustomerTaxClassForm
+            fieldsets:
+                -
+                    create_customer_tax_class_info:
+                        xpath: //form[@id='edit_form']
+                        fields:
+                            customer_class_name: //input[@id='class_name']
+                        required: [customer_class_name]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            save_class: //button[span='Save Class']
+        messages:
+            empty_class_name: "//input[@id='class_name']//following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            error_class_exists: "//div[@id='messages']//li[span='An error occurred while saving this tax class. A class with the same name already exists.']"
+
+# 'Edit Customer Tax Class' Page
+edit_customer_tax_class:
+    mca: tax_class_customer/edit/id/%id%/
+    title: %customerTaxClassName% / Customer Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &editCustomerTaxClassForm
+            fieldsets:
+                -
+                    customer_tax_class_info:
+                        xpath: //div[@id='edit_form']
+                        fields:
+                            customer_class_name: //input[@id='class_name']
+                        required: [class_name]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            delete_class: //button[span='Delete Class']
+            save_class: //button[span='Save Class']
+        messages:
+            delete_confirmation: "Are you sure you want to do this?"
+            error_delete_tax_class: //div[@id='messages']//li[span='You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.']
+            empty_class_name: "//input[@id='class_name']//following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+
+# Product Tax Class and related pages
+# 'Manage Product Tax Classes' page
+manage_product_tax_class:
+    mca: tax_class_product/
+    click_xpath: //ul[@id='nav']//a[contains(@href, 'tax_class_product')]
+    title: Product Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &searchProductTaxClassGrid
+            fieldsets:
+                -
+                    manage_product_tax_class:
+                        xpath:
+                        fields:
+                            product_class_name: //input[@id='filter_class_name']
+                        buttons:
+                            reset_filter: //button[span='Reset Filter']
+                            search: //button[span='Search']
+        buttons:
+            add_new: //button[span='Add New']
+            delete_class: //button[span='Delete Class']
+        messages:
+            success_saved_tax_class: //div[@id='messages']//li[span='The tax class has been saved.']
+            success_deleted_tax_class: //div[@id='messages']//li[span='The tax class has been deleted.']
+        pageelements:
+            tax_class_name: //table[@id='taxClassGrid_table']//tr//td[normalize-space(text())='%productTaxClassName%']
+
+# 'New Product Tax Class' Page
+create_product_tax_class:
+    mca: tax_class_product/new/
+    title: New Class / Product Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &newProductTaxClassForm
+            fieldsets:
+                -
+                    product_tax_class_info:
+                        xpath:
+                        fields:
+                            product_class_name: //input[@id='class_name']
+                        required: [class_name]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            save_class: //button[span='Save Class']
+        messages:
+            empty_class_name: "//input[@id='class_name']//following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            error_class_exists: "//div[@id='messages']//li[span='An error occurred while saving this tax class. A class with the same name already exists.']"
+
+# 'Edit Product Tax Class' Page
+edit_product_tax_class:
+    mca: tax_class_product/edit/id/%id%/
+    title: %productTaxClassName% / Product Tax Classes / Tax / Sales / Magento Admin
+    uimap:
+        form: &editProductTaxClassForm
+            fieldsets:
+                -
+                    product_tax_class_info:
+                        xpath:
+                        fields:
+                            product_class_name: //input[@id='class_name']
+                        required: [class_name]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            delete_class: //button[span='Delete Class']
+            save_class: //button[span='Save Class']
+        messages:
+            delete_confirmation: "Are you sure you want to do this?"
+            error_delete_tax_class: //div[@id='messages']//li[span='You cannot delete this tax class as it is used in Tax Rules. You have to delete the rules it is used in first.']
+            empty_class_name: "//input[@id='class_name']//following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+
+# Manage Tax Rate and related pages
+# 'Manage Tax Zones and Rates' page
+manage_tax_zones_and_rates:
+    mca: tax_rate/
+    click_xpath: //ul[@id='nav']//a[contains(@href, 'tax_rate') and not(contains(@href, 'importExport'))]
+    title: Manage Tax Zones and Rates / Tax / Sales / Magento Admin
+    uimap:
+        form: &searchTaxRatesGrid
+            fieldsets:
+                -
+                    manage_tax_rates:
+                        xpath: //div[@id='tax_rate_grid']
+                        buttons:
+                            reset_filter: //button[span='Reset Filter']
+                            search: //button[span='Search']
+                        dropdowns:
+                            country: //select[@id='filter_tax_country_id']
+                        fields:
+                            tax_id: //input[@id='filter_code']
+                            state_region: //input[@id='filter_region_name']
+                            zip_code: //input[@id='filter_tax_postcode']
+                            rate_from: //input[@id='filter_rate_from']
+                            rate_to: //input[@id='filter_rate_to']
+        buttons:
+            add_new_tax_rate: //button[span='Add New Tax Rate']
+        messages:
+            success_saved_tax_rate: //div[@id='messages']//li[span='The tax rate has been saved.']
+            success_deleted_tax_rate: //div[@id='messages']//li[span='The tax rate has been deleted.']
+        pageelements:
+            tax_rule_identifier: //table[@id='tax_rate_grid_table']//tr[td[normalize-space(text())='%rateIdentifier%']]
+
+# 'New Tax Rate' Page
+create_tax_rate:
+    mca: tax_rate/add/
+    title: New Rate / Manage Tax Zones and Rates / Tax / Sales / Magento Admin
+    uimap:
+        form: &newTaxRatesForm
+            fieldsets:
+                -
+                    tax_rate_info:
+                        xpath: //div[@id='base_fieldset']
+                        dropdowns:
+                            country: //select[@id='tax_country_id']
+                            state: //select[@id='tax_region_id']
+                            zip_is_range: //select[@id='zip_is_range']
+                        fields:
+                            tax_identifier: //input[@id='code']
+                            zip_postal_code: //input[@id='tax_postcode']
+                            zip_range_from: //input[@id='zip_from']
+                            zip_range_to: //input[@id='zip_to']
+                            rate_percent: //input[@id='rate']
+                        required: [tax_identifier, country, rate_percent]
+                -
+                    tax_titles:
+                        xpath: //div[contains(h4,'Tax Titles')]/following-sibling::*[1]
+                        fields:
+                            tax_title: //td[%storeNumber%]/input
+                        pageelements:
+                            tax_title_header: //table[@class='form-list']//tbody/tr[@class='dynamic-grid']/th
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            save_rate: //button[span='Save Rate']
+            delete_rate: //button[span='Delete Rate']
+        messages:
+            error_create: //div[@id='messages']//li[span='Code already exists.']
+            error_required: "//form[@id='rate_form']//input//following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            error_invalid_value: "//form[@id='rate_form']//input//following-sibling::div[@class='validation-advice' and not(contains(@style,'display: none;'))]"
+
+# 'Edit Tax Rate' Page
+edit_tax_rate:
+    mca: tax_rate/edit/rate/%id%/
+    title: %rateIdentifier% / Manage Tax Zones and Rates / Tax / Sales / Magento Admin
+    uimap:
+        form: &editTaxRatesForm
+            fieldsets:
+                -
+                    tax_rate_info:
+                        xpath: //div[@id='base_fieldset']
+                        dropdowns:
+                            country: //select[@id='tax_country_id']
+                            state: //select[@id='tax_region_id']
+                            zip_is_range: //select[@id='zip_is_range']
+                        fields:
+                            tax_identifier: //input[@id='code']
+                            zip_postal_code: //input[@id='tax_postcode']
+                            zip_range_from: //input[@id='zip_from']
+                            zip_range_to: //input[@id='zip_to']
+                            rate_percent: //input[@id='rate']
+                        required: [tax_identifier, country, rate_percent]
+                -
+                    tax_titles:
+                        xpath: //div[contains(h4,'Tax Titles')]/following-sibling::*[1]
+                        fields:
+                            tax_title: //td[%storeNumber%]/input
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            delete_rate: //button[span='Delete Rate']
+            save_rate: //button[span='Save Rate']
+        messages:
+            delete_confirmation: "Are you sure you want to do this?"
+            error_delete_tax_rate: //div[@id='messages']//li[span='Tax rate cannot be removed. It exists in tax rule']
+            # TODO
+
+#Import/Export Tax Rates
+manage_import_export_tax_rates:
+    mca: tax_rate/importExport/
+    click_xpath: //ul[@id='nav']//a[contains(@href, 'tax_rate/import')]
+    title: Import and Export Tax Rates / Manage Tax Zones and Rates / Tax / Sales / Magento Admin
+    uimap:
+        form: &salesImportExportTaxRates
+            fieldsets:
+                -
+                    sales_tax_import_tax_reates:
+                        xpath: //div[@class='entry-edit']/div[@class='box-left']
+                        buttons:
+                            import_tax_rates: //button[span='Import Tax Rates']
+                        fields:
+                            import: //input[@name='import_rates_file']
+                -
+                    sales_tax_export_tax_reates:
+                        xpath: //div[@class='entry-edit']/div[@class='box-right']
+                        buttons:
+                            export_tax_rates: //button[span='Export Tax Rates']
+        messages:
+            invalid_file_upload_attempt: //li[normalize-space(@class)='error-msg' and contains(.,'Invalid file upload attempt')]
+            invalid_file_format_upload_attempt: //li[normalize-space(@class)='error-msg' and contains(.,'Invalid file format upload attempt')]
+
+# Manage Tax Rules and related pages
+# Manage Tax Rules page
+manage_tax_rule:
+    mca: tax_rule/
+    click_xpath: //ul[@id='nav']//a[contains(@href, 'tax_rule')]
+    title: Manage Tax Rules / Tax / Sales / Magento Admin
+    uimap:
+        form: &searchTaxRulesGrid
+            fieldsets:
+                -
+                    manage_tax_rules:
+                        xpath:
+                        buttons:
+                            reset_filter: //button[span='Reset Filter']
+                            search: //button[span='Search']
+                        dropdowns:
+                            view_per_page: //select[@name='limit']
+                            customer_tax_class: //select[@id='taxRuleGrid_filter_customer_tax_classes']
+                            product_tax_class: //select[@id='taxRuleGrid_filter_product_tax_classes']
+                            tax_rate: //select[@id='taxRuleGrid_filter_tax_rates']
+                        fields:
+                            page: //input[@name='page']
+                            name: //input[@id='taxRuleGrid_filter_code']
+                            priority: //input[@id='taxRuleGrid_filter_priority']
+                            sort_order: //input[@id='taxRuleGrid_filter_position']
+        buttons:
+            add_new_tax_rule: //button[span='Add New Tax Rule']
+        messages:
+            tax_rule_saved: //li[normalize-space(@class)='success-msg' and contains(.,'The tax rule has been saved.')]
+            tax_rule_deleted: //li[normalize-space(@class)='success-msg' and contains(.,'The tax rule has been deleted.')]
+            # TODO
+
+# Add New Tax Rule page
+create_tax_rule:
+    mca: tax_rule/new/
+    title: New Rule / Manage Tax Rules / Tax / Sales / Magento Admin
+    uimap:
+        form: &newTaxRuleForm
+            fieldsets:
+                -
+                    tax_rule_info:
+                        xpath:
+                        fields:
+                            name: //input[@id='code']
+                            priority: //input[@id='priority']
+                            sort_order: //input[@id='position']
+                        multiselects:
+                            customer_tax_class: //select[@id='tax_customer_class']
+                            product_tax_class: //select[@id='tax_product_class']
+                            tax_rate: //select[@id='tax_rate']
+                        required: [name, customer_tax_class, product_tax_class, tax_rate, priority]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            save_rule: //button[span='Save Rule']
+            save_and_continue_edit: //button[span='Save and Continue Edit']
+        messages:
+            code_already_exists: //li[normalize-space(@class)='error-msg' and contains(.,'Code already exists.')]
+            empty_required_field: //form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]
+            invalid_field_value: //form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]
+
+
+# Edit Tax Rule page
+edit_tax_rule:
+    mca: tax_rule/edit/rule/%id%/
+    title: %ruleName% / Manage Tax Rules / Tax / Sales / Magento Admin
+    uimap:
+        form: &editTaxRuleForm
+            fieldsets:
+                -
+                    tax_rule_info:
+                        xpath:
+                        fields:
+                            name: //input[@id='code']
+                            priority: //input[@id='priority']
+                            sort_order: //input[@id='position']
+                        multiselects:
+                            customer_tax_class: //select[@id='tax_customer_class']
+                            product_tax_class: //select[@id='tax_product_class']
+                            tax_rate: //select[@id='tax_rate']
+                        required: [name, customer_tax_class, product_tax_class, tax_rate, priority]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            delete_rule: //button[span='Delete Rule']
+            save_rule: //button[span='Save Rule']
+            save_and_continue_edit: //button[span='Save and Continue Edit']
+        messages:
+            empty_required_field: //form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]
+            invalid_field_value: //form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]
+            delete_confirmation: "Are you sure you want to do this?"
+            code_already_exists: //li[normalize-space(@class)='error-msg' and contains(.,'Code already exists.')]

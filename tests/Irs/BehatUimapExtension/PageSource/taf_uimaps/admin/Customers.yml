@@ -1,0 +1,343 @@
+#
+# Magento
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Academic Free License (AFL 3.0)
+# that is bundled with this package in the file LICENSE_AFL.txt.
+# It is also available through the world-wide-web at this URL:
+# http://opensource.org/licenses/afl-3.0.php
+# If you did not receive a copy of the license and are unable to
+# obtain it through the world-wide-web, please send an email
+# to license@magentocommerce.com so we can send you a copy immediately.
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade Magento to newer
+# versions in the future. If you wish to customize Magento for your
+# needs please refer to http://www.magentocommerce.com for more information.
+#
+# @category    tests
+# @package     selenium
+# @subpackage  uimaps
+# @author      Magento Core Team <core@magentocommerce.com>
+# @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+# @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+#
+---
+#Manage Customers and related pages
+# 'Manage Customers' page
+manage_customers:
+    mca: customer/
+    click_xpath: //div[@class='nav-bar']//a[span='Manage Customers']
+    title: Manage Customers / Customers / Magento Admin
+    uimap:
+        form: &searchCustomerGrid
+            fieldsets:
+                -
+                    customers_grid:
+                        xpath: //div[@id='customerGrid']
+                        buttons:
+                            reset_filter: //button[span='Reset Filter']
+                            search: //button[span='Search']
+                            submit: //button[@onclick='customerGrid_massactionJsObject.apply()']
+                        dropdowns:
+                            grid_massaction_select: //select[@id='customerGrid_massaction-select']
+                            massaction: //select[@name='massaction']
+                            group: //select[@id='customerGrid_filter_group']
+                            country: //select[@id='customerGrid_filter_billing_country_id']
+                            website: //select[@id='customerGrid_filter_filter_website_id']
+                            visibility: //select[@id='visibility']
+                        fields:
+                            id_from: //input[@id='customerGrid_filter_entity_id_from']
+                            id_to: //input[@id='customerGrid_filter_entity_id_to']
+                            name: //input[@id='customerGrid_filter_name']
+                            email: //input[@id='customerGrid_filter_email']
+                            telephone: //input[@id='customerGrid_filter_Telephone']
+                            zip_code: //input[@id='customerGrid_filter_billing_postcode']
+                            state: //input[@id='customerGrid_filter_billing_region']
+                        pageelements:
+                            customer_grid_head: //table[@id='customerGrid_table']/thead/tr[@class='headings']
+        buttons:
+            add_new_customer: //button[span='Add New Customer' or span='Add New']
+        messages:
+            success_deleted_customer_massaction: //li[normalize-space(@class)='success-msg' and contains(.,'Total of %qtyDeletedCustomers% record(s) were deleted.')]
+            success_updated_customer_massaction: ////li[normalize-space(@class)='success-msg' and contains(.,'Total of %qtyUpdatedCustomers% record(s) were updated.')]
+            wrong_data_of_birth: //li[normalize-space(@class)='error-msg' and contains(.,'"Date Of Birth" does not fit the entered date format.')]
+            empty_required_field: "%fieldXpath%/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            customer_email_exist: //li[normalize-space(@class)='error-msg' and contains(.,'Customer with the same email already exists.')]
+            success_deleted_customer: //li[normalize-space(@class)='success-msg' and contains(.,'The customer has been deleted.')]
+            success_saved_customer: //li[normalize-space(@class)='success-msg' and contains(.,'The customer has been saved.')]
+            customer_invalid_email: //li[normalize-space(@class)='error-msg' and contains(.,'"Email" is not a valid')]
+            no_records_found: //td[normalize-space(@class)='empty-text a-center' and text()='No records found.']
+            password_too_short: //div[@id='advice-validate-password-_accountpassword']
+            invalid_email: //div[@id='advice-validate-email-_accountemail']
+            confirmation_for_delete: Are you sure you want to do this?
+            confirmation_for_massaction: Are you sure?
+            confirmation_for_massaction_delete: Are you sure?
+            success_deleted_group: //li[normalize-space(@class)='success-msg' and contains(.,'The customer group has been deleted.')]
+            success_added_group: //li[normalize-space(@class)='error-msg' and contains(.,'The customer group has been saved.')]
+
+
+# 'New Customer' Page
+create_customer:
+    mca: customer/new/
+    title: New Customer / Manage Customers / Customers / Magento Admin
+    uimap:
+        form: &newCustomerForm
+            tabs:
+                -
+                    account_information:
+                        xpath: //a[@id='customer_info_tabs_account']/span
+                        fieldsets:
+                            -
+                                account_info:
+                                    xpath: //div[@id='_accountbase_fieldset']
+                                    checkboxes:
+                                        send_welcome_email: //input[@id='_accountsendemail' and not(@disabled)]
+                                    dropdowns:
+                                        associate_to_website: //select[@id='_accountwebsite_id']
+                                        group: //select[@id='_accountgroup_id']
+                                        gender: //select[@id='_accountgender']
+                                        send_from: //select[@id='_accountsendemail_store_id' and not(@disabled)]
+                                    fields:
+                                        prefix: //input[@id='_accountprefix']
+                                        first_name: //input[@id='_accountfirstname']
+                                        middle_name: //input[@id='_accountmiddlename']
+                                        last_name: //input[@id='_accountlastname']
+                                        suffix: //input[@id='_accountsuffix']
+                                        email: //input[@id='_accountemail']
+                                        date_of_birth: //input[@id='_accountdob']
+                                        tax_vat_number: //input[@id='_accounttaxvat']
+                                    required: [associate_to_website, group, first_name, last_name, email]
+                            -
+                                password:
+                                    xpath: //div[@id='_accountpassword_fieldset']
+                                    checkboxes:
+                                        auto_generated_password: //input[@id='account-send-pass']
+                                    fields:
+                                        password: //input[@id='_accountpassword' and not(@disabled)]
+                                    required: [password]
+                -
+                    addresses:
+                        xpath: //a[@id='customer_info_tabs_addresses']
+                        fieldsets:
+                            -
+                                list_customer_addresses:
+                                    xpath: //td[normalize-space(@class)='address-list']
+                                    buttons:
+                                        add_new_address: //button[span='Add New Address']
+                                        delete_address: //li[@id='new_item%address_number%']//a[normalize-space(@class)='btn-remove-address']/img
+                                        edit_address: //li[@id='new_item%address_number%']//a[normalize-space(@class)='select_button btn-edit-address']/img
+                                    radiobuttons:
+                                        default_billing_address: //input[@id='address_item_billing_item%address_number%']
+                                        default_shipping_address: //input[@id='address_item_shipping_item%address_number%']
+                            -
+                                edit_address:
+                                    xpath: //div[@id='_item%address_number%address_fieldset']
+                                    dropdowns:
+                                        country: //select[@id='_item%address_number%country_id']
+                                        state: //select[@id='_item%address_number%region_id']
+                                    fields:
+                                        prefix: //input[@id='_item%address_number%prefix']
+                                        first_name: //input[@id='_item%address_number%firstname']
+                                        middle_name: //input[@id='_item%address_number%middlename']
+                                        last_name: //input[@id='_item%address_number%lastname']
+                                        suffix: //input[@id='_item%address_number%suffix']
+                                        company: //input[@id='_item%address_number%company']
+                                        street_address_line_1: //input[@id='_item%address_number%street0']
+                                        street_address_line_2: //input[@id='_item%address_number%street1']
+                                        city: //input[@id='_item%address_number%city']
+                                        region: //input[@id='_item%address_number%region' and not(@type='hidden')]
+                                        zip_code: //input[@id='_item%address_number%postcode']
+                                        telephone: //input[@id='_item%address_number%telephone']
+                                        fax: //input[@id='_item%address_number%fax']
+                                    required: [first_name, last_name, street_address_line_1, city, country, state, zip_code, telephone]
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            save_customer: //button[span='Save Customer']
+            save_and_continue_edit: //button[span='Save and Continue Edit']
+        messages:
+            success_saved_customer: //li[normalize-space(@class)='success-msg' and contains(.//*,'The customer has been saved.')]
+            customer_email_exist: //li[normalize-space(@class)='error-msg' and contains(.//*,'Customer with the same email already exists.')]
+#           customer_invalid_email: //li[normalize-space(@class)='error-msg'][contains(.//*,'"Email" is not a valid email address.') or (contains(.//*,'"Email" is not a valid hostname.') and contains(.//*,'does not match the expected structure for a DNS hostname') and contains(.//*,'appears to be a local network name but local network names are not allowed'))]
+            customer_invalid_email: //div[@id='advice-validate-email-_accountemail' and contains(.,'Please enter a valid email address. For example johndoe@domain.com.')]
+            wrong_data_of_birth: //li[normalize-space(@class)='error-msg' and contains(.//*,'"Date Of Birth" does not fit the entered date format.')]
+            password_too_short: //div[@id='advice-validate-password-_accountpassword']
+            associate_to_website: "//select[@id='_accountwebsite_id']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            #empty fields validation
+            first_name_empty: "//input[@id='_accountfirstname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            last_name_empty: "//input[@id='_accountlastname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            email_empty: "//input[@id='_accountemail']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            password_empty: "//input[@id='_accountpassword']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_first_name: "//input[@id='_item%address_number%firstname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_last_name: "//input[@id='_item%address_number%lastname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_street_address_line_1: "//div[@class='multi-input']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_city: "//input[@id='_item%address_number%city']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_country: "//select[@id='_item%address_number%country_id']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_state: "//select[@id='_item%address_number%region_id']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_zip_code: "//input[@id='_item%address_number%postcode']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_telephone: "//input[@id='_item%address_number%telephone']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_required_field: "%fieldXpath%/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+
+
+
+# 'Edit Customer' Page
+edit_customer:
+    mca: customer/edit/id/%id%/
+    title: %customer_first_last_name% / Manage Customers / Customers / Magento Admin
+    uimap:
+        form: &editCustomerForm
+            tabs:
+                -
+                    customer_view:
+                        xpath: //a[@id='customer_info_tabs_customer_edit_tab_view']/span
+                        # need to edit
+                -
+                    account_information:
+                        xpath: //a[@id='customer_info_tabs_account']/span
+                        fieldsets:
+                            -
+                                account_info:
+                                    xpath: //div[@id='_accountbase_fieldset']
+                                    dropdowns:
+                                        associate_to_website: //select[@id='_accountwebsite_id']
+                                        group: //select[@id='_accountgroup_id']
+                                        gender: //select[@id='_accountgender']
+                                    fields:
+                                        created_from: //input[@id='_accountcreated_in']
+                                        prefix: //input[@id='_accountprefix']
+                                        first_name: //input[@id='_accountfirstname']
+                                        middle_name: //input[@id='_accountmiddlename']
+                                        last_name: //input[@id='_accountlastname']
+                                        suffix: //input[@id='_accountsuffix']
+                                        email: //input[@id='_accountemail']
+                                        date_of_birth: //input[@id='_accountdob']
+                                        tax_vat_number: //input[@id='_accounttaxvat']
+                                    required: [group, first_name, last_name, email]
+                            -
+                                password:
+                                    xpath: //div[@id='_accountpassword_fieldset']
+                                    checkboxes:
+                                        auto_generated_password: //input[@id='account-send-pass']
+                                    fields:
+                                        new_password: //input[@id='_accountnew_password']
+                                    required: [password]
+                -
+                    addresses:
+                        xpath: //a[@id='customer_info_tabs_addresses']/span
+                        fieldsets:
+                            -
+                                list_customer_addresses:
+                                    xpath: //td[normalize-space(@class)='address-list']
+                                    buttons:
+                                        add_new_address: //button[span='Add New Address']
+                                        delete_address: //li[@id='new_item%address_number%' or @id='address_item_%address_number%']//a[normalize-space(@class)='btn-remove-address']/img
+                                        edit_address: //li[@id='new_item%address_number%' or @id='address_item_%address_number%']//a[normalize-space(@class)='select_button btn-edit-address']/img
+                                    radiobuttons:
+                                        default_billing_address: //input[@id='address_item_billing%address_number%' or @id='address_item_billing_item%address_number%']
+                                        default_shipping_address: //input[@id='address_item_shipping%address_number%' or @id='address_item_shipping_item%address_number%']
+                            -
+                                edit_address:
+                                    xpath:  //div[@id='_item%address_number%address_fieldset']
+                                    dropdowns:
+                                        country: //select[@id='_item%address_number%country_id']
+                                        state: //select[@id='_item%address_number%region_id']
+                                    fields:
+                                        prefix: //input[@id='_item%address_number%prefix']
+                                        first_name: //input[@id='_item%address_number%firstname']
+                                        middle_name: //input[@id='_item%address_number%middlename']
+                                        last_name: //input[@id='_item%address_number%lastname']
+                                        suffix: //input[@id='_item%address_number%suffix']
+                                        company: //input[@id='_item%address_number%company']
+                                        street_address_line_1: //input[@id='_item%address_number%street0']
+                                        street_address_line_2: //input[@id='_item%address_number%street1']
+                                        city: //input[@id='_item%address_number%city']
+                                        region: //input[@id='_item%address_number%region' and not(@type='hidden')]
+                                        zip_code: //input[@id='_item%address_number%postcode']
+                                        telephone: //input[@id='_item%address_number%telephone']
+                                        fax: //input[@id='_item%address_number%fax']
+                                    required: [first_name, last_name, street_address_line_1, city, country, zip_code, telephone]
+                            -
+                                orders:
+                                    xpath: //a[@id='customer_info_tabs_orders']/span
+                                    # need to edit
+                            -
+                                billing_agremnts:
+                                    xpath: //a[@id='customer_info_tabs_customer_edit_tab_agreements']/span
+                                    # need to edit
+                            -
+                                recuring_profiles:
+                                    xpath: //a[@id='customer_info_tabs_customer_edit_tab_recurring_profile']/span
+                                    # need to edit
+                            -
+                                shopping_cart:
+                                    xpath: //a[@id='customer_info_tabs_cart']/span
+                                    # need to edit
+                -
+                    wishlist:
+                        xpath: //a[@id='customer_info_tabs_wishlist']
+                        fieldsets:
+                            -
+                                wishlist_information:
+                                    xpath: //div[@id='wishlistGrid']
+                                    buttons:
+                                        reset_filter: //button[@title='Reset Filter']
+                                        search_in_wishlist: //button[@title='Search']
+                                        delete_from_wishlist: //table[@id='wishlistGrid_table']//a[contains(@onclick,'removeItem')]
+                                    fields:
+                                        product_name: //input[@id='wishlistGrid_filter_product_name']
+                                        user_description: //input[@id='filter_description']
+                                        date_added_from: //input[@id='filter_added_at1323858370.4935_from' and @name='added_at[from]']
+                                        date_added_to: //input[@id='filter_added_at1323858370.4935_to' and @name='added_at[to]']
+                                        days_in_wishlist_from: //input[@id='filter_days_from']
+                                        days_in_wishlist_to: //input[@id='filter_days_to']
+                                    dropdowns:
+                                        visible_in: //select[@name='visible_in']
+                        # need to edit
+                -
+                    newsletters:
+                        xpath: //a[@id='customer_info_tabs_newsletter']
+                        fieldsets:
+                            -
+                                newsletter_information:
+                                    xpath: //div[@id='_newsletterbase_fieldset']
+                                    checkboxes:
+                                        admin_newsletter_subscription: //input[@id='_newslettersubscription']
+
+                                    # need to edit
+                -
+                    product_review:
+                        xpath: //a[@id='customer_info_tabs_reviews']/span
+                        # need to edit
+                -
+                    product_tags:
+                        xpath: //a[@id='customer_info_tabs_tags']/span
+                        # need to edit
+                -
+                    shopping_cart:
+                        xpath: //a[@id='customer_info_tabs_cart']
+                        fieldsets:
+                            -
+                                products_grid:
+                                    xpath: //div[contains(@id, 'customer_cart_grid')]
+                                    buttons:
+                                        reset_filter: //button[span='Reset Filter']
+        buttons:
+            back: //button[span='Back']
+            reset: //button[span='Reset']
+            create_order: //button[span='Create Order']
+            delete_customer: //*[@class='scalable delete']
+            save_customer: //button[span='Save Customer']
+            save_and_continue_edit: //button[span='Save and Continue Edit']
+        messages:
+            success_saved_customer: //li[normalize-space(@class)='success-msg' and contains(.//*,'The customer has been saved.')]
+            confirmation_for_delete: Are you sure you want to do this?
+            #empty fields validation
+            first_name_empty: "//input[@id='_accountfirstname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            last_name_empty: "//input[@id='_accountlastname']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            email_empty: "//input[@id='_accountemail']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            password_empty: "//input[@id='_accountpassword']/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            empty_required_field: "%fieldXpath%/following-sibling::*[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+
