@@ -9,7 +9,7 @@
 
 namespace Irs\BehatUimapExtension;
 
-require_once 'Irs/BehatUimapExtension/Helper.php';
+require_once __DIR__ . '/Helper.php';
 
 class FsoTest extends \PHPUnit_Framework_TestCase
 {
