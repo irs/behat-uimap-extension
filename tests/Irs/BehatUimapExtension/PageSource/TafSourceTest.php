@@ -9,24 +9,22 @@
 
 namespace Irs\BehatUimapExtension\PageSource;
 
-use Symfony\Component\Yaml\Yaml;
-
-require_once 'vfsStream/vfsStream.php';
-require_once 'vfsStream/vfsStreamFile.php';
-
 use Irs\BehatUimapExtension\Page;
 use Irs\BehatUimapExtension\Locator;
+use Symfony\Component\Yaml\Yaml;
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamFile;
 
 class TafTest extends \PHPUnit_Framework_TestCase
 {
     protected function _setUpVfs()
     {
-        $oneUimap = new \vfsStreamFile('one.yml');
+        $oneUimap = new vfsStreamFile('one.yml');
         $oneUimap->setContent($this->_oneUimapFileContent);
-        $twoUimap = new \vfsStreamFile('two.yml');
+        $twoUimap = new vfsStreamFile('two.yml');
         $twoUimap->setContent($this->_twoUimapFileContent);
 
-        $vfs = \vfsStream::setup('uimaps');
+        $vfs = vfsStream::setup('uimaps');
         $vfs->addChild($oneUimap);
         $vfs->addChild($twoUimap);
     }
@@ -34,7 +32,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
     public function testShouldAcceptSinglePathAsContructorsArgument()
     {
         $this->_setUpVfs();
-        $source = new TafSource(\vfsStream::url('uimaps/one.yml'));
+        $source = new TafSource(vfsStream::url('uimaps/one.yml'));
         $page = $source->getPageByUrl('http://magento-1.11.0.1.local/index.php/admin/catalog_product/new/key/cfe78d7c0700e77b09a23b65780ed3b69c192286373151c315616a01de8ee9aa/');
         $this->assertEquals('new_product_settings', $page->getKey());
     }
@@ -44,14 +42,14 @@ class TafTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldImplementPageSourceInterface()
     {
-        \vfsStream::setup('uimaps');
+        vfsStream::setup('uimaps');
 
-        $this->assertInstanceOf('\Irs\BehatUimapExtension\PageSource\PageSourceInterface', new TafSource(\vfsStream::url('uimaps')));
+        $this->assertInstanceOf('\Irs\BehatUimapExtension\PageSource\PageSourceInterface', new TafSource(vfsStream::url('uimaps')));
     }
 
     public function testShouldAcceptArrayOfPathesAsConstructorsArgument()
     {
-        \vfsStream::setup(
+        vfsStream::setup(
             'uimaps',
             null,
             array(
@@ -61,9 +59,9 @@ class TafTest extends \PHPUnit_Framework_TestCase
         );
 
         new TafSource(array(
-            \vfsStream::url('uimaps/ullaaa'),
-            \vfsStream::url('uimaps/lala'),
-            \vfsStream::url('uimaps/ullaaa/alala.yml'),
+            vfsStream::url('uimaps/ullaaa'),
+            vfsStream::url('uimaps/lala'),
+            vfsStream::url('uimaps/ullaaa/alala.yml'),
         ));
     }
 
@@ -72,7 +70,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
      */
     public function testIfIncorrectPathPassedToContructorGetPageShouldThrowInvalidArgumentException()
     {
-        \vfsStream::setup(
+        vfsStream::setup(
             'uimaps',
             null,
             array(
@@ -81,7 +79,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $source = new TafSource(array(\vfsStream::url('/uimaps/kdkrt/eerps'), \vfsStream::url('/uimaps/shprtwk')));
+        $source = new TafSource(array(vfsStream::url('/uimaps/kdkrt/eerps'), vfsStream::url('/uimaps/shprtwk')));
     }
 
     /**
@@ -97,7 +95,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
         // prepare
         $this->_setUpVfs();
 
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $onePage = $source->getPageByUrl('http://magento-1.11.0.1.local/index.php/admin/catalog_product/edit/id/1/key/a542e1d4d739dfd20f4d71092e3b3c1a41047c4bf5b7b601ac9bd304b6b5c5d2/');
@@ -129,7 +127,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
     {
         // prepare
         $this->_setUpVfs();
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $source->getPageByUrl('skdjnjkdnsfjknsdf');
@@ -143,7 +141,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
 
         // prepare
         $this->_setUpVfs();
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $onePage = $source->getPageByUrl('http://magento-1.11.0.1.local/index.php/admin/catalog_product/edit/id/1/key/a542e1d4d739dfd20f4d71092e3b3c1a41047c4bf5b7b601ac9bd304b6b5c5d2/');
@@ -168,7 +166,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
         // prepare
         $this->_setUpVfs();
 
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $onePage = $source->getPageByKey('edit_product');
@@ -200,7 +198,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
     {
         // prepare
         $this->_setUpVfs();
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $source->getPageByKey('skdjnjkdnsfjknsdf');
@@ -213,7 +211,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
     {
         // prepare
         $this->_setUpVfs();
-        $source = new TafSource(\vfsStream::url('uimaps'));
+        $source = new TafSource(vfsStream::url('uimaps'));
 
         // act
         $onePage = $source->getPageByKey('edit_product');
@@ -269,7 +267,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
     {
         $prefix = 'prefix';
         $this->_setUpVfs();
-        $source = new TafSource(array($prefix => \vfsStream::url('uimaps')));
+        $source = new TafSource(array($prefix => vfsStream::url('uimaps')));
 
         foreach (array('manage_products', 'new_product_settings', 'manage_categories') as $key) {
             $this->assertEquals(

@@ -19,19 +19,19 @@ use Behat\Mink\Mink;
 use Behat\Mink\Driver\DriverInterface;
 use Behat\Mink\Selector\SelectorsHandler;
 
-require_once 'vfsStream/vfsStream.php';
-require_once 'vfsStream/vfsStreamFile.php';
+use org\bovigo\vfs\vfsStreamFile;
+use org\bovigo\vfs\vfsStream;
 
 class UimapContextTest extends \PHPUnit_Framework_TestCase
 {
     protected function _createContextWithDriver(DriverInterface $driver)
     {
-        $uimapYaml = new \vfsStreamFile('page.yml');
+        $uimapYaml = new vfsStreamFile('page.yml');
         $uimapYaml->setContent($this->_uimapYamlContent);
-        $vfs = \vfsStream::setup('vfs');
+        $vfs = vfsStream::setup('vfs');
         $vfs->addChild($uimapYaml);
 
-        $tafPageSource = new TafPageSource(\vfsStream::url('vfs/page.yml'));
+        $tafPageSource = new TafPageSource(vfsStream::url('vfs/page.yml'));
         $uimapSelector = new UimapSelector($tafPageSource);
         $selectorsHandler = new SelectorsHandler(array('uimap' => $uimapSelector));
 
