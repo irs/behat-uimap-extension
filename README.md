@@ -1,4 +1,4 @@
-behat-uimap-extension
-=====================
+Behat extension for page structure abstraction with YAML files
+==============================================================
 
-Behat extension that allows to use YAML page skeleton for pages tested by Mink.
+[![Build Status](https://travis-ci.org/irs/behat-uimap-extension.png?branch=master)](https://travis-ci.org/irs/behat-uimap-extension)
