@@ -52,7 +52,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
      */
     protected function _getDriverMock()
     {
-        return $this->getMock('Behat\Mink\Driver\Selenium2Driver');
+        return $this->getMock('Behat\Mink\Driver\DriverInterface');
     }
 
     /**
