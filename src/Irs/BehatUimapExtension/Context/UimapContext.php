@@ -353,7 +353,7 @@ trait UimapContext
     {
         $field = $this->getPage()->find(
             'uimap',
-            $this->createLocatorForCurrentPage($key, $type, $fieldset, $tab, $params)
+            $locator = $this->createLocatorForCurrentPage($key, $type, $fieldset, $tab, $params)
         );
 
         if (null === $field) {
