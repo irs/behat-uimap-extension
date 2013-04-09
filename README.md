@@ -36,7 +36,11 @@ Usage
 -----
 
 To use "language" from UI map files you need to use `Irs\BehatUimapExtension\Context\UimapContext` trait in your 
-features' context. This trait contains definitions for following steps:
+features' context. The trait expects that `Behat\Mink\Mink` and Mink's parameter will be set with `setMink()` 
+and `setMinkParameters()` methods before usage; you can do it either with dependency injection or with marking
+that feature context that uses the trait implments `Behat\MinkExtension\Context\MinkAwareInterface.`
+
+`UimapContext` trait contains definitions for following steps:
 
 ```
 Then /^the (?i)url(?-i) should match (?P<pattern>"([^"]|\\")*")$/
