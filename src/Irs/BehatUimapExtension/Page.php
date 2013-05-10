@@ -93,7 +93,7 @@ class Page extends \DOMDocument implements \Serializable
         if (!$this->urlRegexp) {
             $dlm = '|';
             $regexp = preg_replace('#%[^%]+%#', '(.*)', $url = preg_quote(rtrim($this->getUrl(), '/'), $dlm));
-            if (!$regexp) {
+            if (null === $regexp) {
                 $this->formatOutput = true;
                 throw new \RuntimeException("Error on calculation URL's regular expression for URL: $url of page:\n" . $this->saveXML());
             }

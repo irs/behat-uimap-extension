@@ -317,6 +317,9 @@ class TafSource implements PageSourceInterface, CachingInterface
                         continue 2;  // go to next iteration of foreach
                     } else {
                         $child = $page->createFieldset($name, isset($description['xpath']) ? $description['xpath'] : '');
+                        if (!is_array($description)) {
+                            continue 2;  // go to next iteration of foreach
+                        }
                         foreach ($description as $subType => $subDescription) {
                             if (is_array($subDescription)) {
                                 $this->appendChild($page, $child, $subType, $subDescription);
