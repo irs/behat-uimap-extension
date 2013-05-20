@@ -351,7 +351,7 @@ trait UimapContext
      */
     public function findField($key = null, $type = null, $fieldset = null, $tab = null, array $params = array())
     {
-        $field = $this->getPage()->find(
+        $field = $this->getSession()->getPage()->find(
             'uimap',
             $locator = $this->createLocatorForCurrentPage($key, $type, $fieldset, $tab, $params)
         );
@@ -371,16 +371,6 @@ trait UimapContext
     protected function getSession()
     {
         return $this->getMink()->getSession();
-    }
-
-    /**
-     * Returns current session page
-     *
-     * @return DocumentElement
-     */
-    protected function getPage()
-    {
-        return $this->getSession()->getPage();
     }
 
     protected function createLocatorForCurrentPage($key = null, $type = null,
