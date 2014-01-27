@@ -404,6 +404,8 @@ new_product:
                                         general_user_attr_field: //input[@id='%attibuteCodeField%']
                                     multiselects:
                                         general_user_attr_multiselect: //input[@id='%attibuteCodeMultiselect%']
+                                    checkboxes:
+                                        reg_accept_terms: //input[@id='accept_terms']
                 -
                     prices: &pricesTab
                         xpath: //a[@title='Prices']/span
@@ -1244,6 +1246,8 @@ XML;
             <field key="general_user_attr_field" xpath="//input[@id='%attibuteCodeField%']"/>
 
             <select key="general_user_attr_multiselect" xpath="//input[@id='%attibuteCodeMultiselect%']"/>
+
+            <checkbox key="reg_accept_terms" xpath="//input[@id='accept_terms']"/>
         </fieldset>
     </tab>
 
