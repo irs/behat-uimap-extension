@@ -9,18 +9,11 @@ in Behat's features.
 Installation
 ============
 
-To install extension with Composer you need to add following lines into `composer.json:`
-
-```javascript
-{
-    "require": {
-        "irs/behat-uimap-extension": "dev-master"
-    }
-}
+To install extension with Composer you need to run:
 ```
-
-After that run `composer install` and add following into `behat.yml:`
-
+composer require irs/behat-uimap-extension
+```
+and add following into `behat.yml:`
 ```
 default:
   extensions:
@@ -37,8 +30,8 @@ Usage
 
 To use "language" from UI map files you need to use `Irs\BehatUimapExtension\Context\UimapContext` trait in your 
 features' context. The trait expects that `Behat\Mink\Mink` and Mink's parameter will be set with `setMink()` 
-and `setMinkParameters()` methods before usage; you can do it either with dependency injection or with marking
-that feature context that uses the trait implments `Behat\MinkExtension\Context\MinkAwareInterface.`
+and `setMinkParameters()` methods; you can do it either with dependency injection or with marking
+that feature context that uses the trait implments `Behat\MinkExtension\Context\MinkAwareContext.`
 
 `UimapContext` trait contains definitions for following steps:
 

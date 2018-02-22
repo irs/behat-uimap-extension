@@ -10,14 +10,14 @@
 namespace Irs\BehatUimapExtension\Context;
 
 use Irs\BehatUimapExtension\PageSource\PageSourceInterface;
-use Behat\Behat\Context\ContextInterface;
-use Behat\Behat\Context\Initializer\InitializerInterface;
+use Behat\Behat\Context\Context;
+use Behat\Behat\Context\Initializer\ContextInitializer;
 
 /**
  * Context initializer for UimapContext
  *
  */
-class UimapContextInitializer implements InitializerInterface
+class UimapContextInitializer implements ContextInitializer
 {
     /**
      * Page source
@@ -42,7 +42,7 @@ class UimapContextInitializer implements InitializerInterface
      * @param ContextInterface $context
      * @return Boolean
      */
-    public function supports(ContextInterface $context)
+    public function supports(Context $context)
     {
         $reflection = new \ReflectionObject($context);
         if (!method_exists($reflection, 'getTraitNames')) {
@@ -62,7 +62,7 @@ class UimapContextInitializer implements InitializerInterface
      *
      * @param ContextInterface $context
      */
-    public function initialize(ContextInterface $context)
+    public function initializeContext(Context $context)
     {
         $context->setPageSource($this->pageSource);
     }

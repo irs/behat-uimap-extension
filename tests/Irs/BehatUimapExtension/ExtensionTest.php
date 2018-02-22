@@ -19,7 +19,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldImplementExtensionInterface()
     {
-        $this->assertInstanceOf('Behat\Behat\Extension\ExtensionInterface', new Extension);
+        $this->assertInstanceOf(\Behat\Testwork\ServiceContainer\Extension::class, new Extension);
     }
 
     public function testLoadShouldAddPropelyConfiguredUimapSelectorToDiContainer()
@@ -35,17 +35,10 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $extension->load($config, $container);
+        $extension->load($container, $config);
 
         // assert
         $this->assertNotEmpty($container->findTaggedServiceIds('behat.mink.selector'));
-    }
-
-    public function testShouldReturnEmptyPassList()
-    {
-        $extension = new Extension;
-
-        $this->assertSame(array(), $extension->getCompilerPasses());
     }
 
     /**
@@ -61,7 +54,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new Extension;
 
         // act
-        $extension->getConfig($extensionNode);
+        $extension->configure($extensionNode);
         $processedConfig = $processor->processConfiguration(new ConfigurationTester($builder), $sourceConfig);
 
         // assert
@@ -82,7 +75,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new Extension;
 
         // act
-        $extension->getConfig($node);
+        $extension->configure($node);
         $processor->processConfiguration(new ConfigurationTester($builder), $sourceConfig);
     }
 

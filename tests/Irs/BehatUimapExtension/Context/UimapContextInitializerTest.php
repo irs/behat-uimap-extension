@@ -9,14 +9,15 @@
 
 namespace Irs\BehatUimapExtension\Context;
 
-use Behat\Behat\Context\ContextInterface;
+use Behat\Behat\Context\Context;
+use Behat\Behat\Context\Initializer\ContextInitializer;
 
 class UimapContextInitializerTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldImplementInitializerInterface()
     {
         $this->assertInstanceOf(
-            'Behat\Behat\Context\Initializer\InitializerInterface',
+            ContextInitializer::class,
             new UimapContextInitializer($this->pageSourceMock())
         );
     }
@@ -41,13 +42,13 @@ class UimapContextInitializerTest extends \PHPUnit_Framework_TestCase
         $pageSource = $this->pageSourceMock();
         $initializer = new UimapContextInitializer($pageSource);
 
-        $context = $this->getMock('Behat\Behat\Context\ContextInterface', array('setPageSource'));
+        $context = $this->getMock(Context::class, array('setPageSource'));
         $context->expects($this->once())
             ->method('setPageSource')
             ->with($pageSource);
 
         // act
-        $initializer->initialize($context);
+        $initializer->initializeContext($context);
     }
 
     protected function pageSourceMock()
@@ -59,10 +60,10 @@ class UimapContextInitializerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class SupportedContext implements ContextInterface
+class SupportedContext implements Context
 {
     use UimapContext;
 }
 
-class NotSupportedContext implements ContextInterface
+class NotSupportedContext implements Context
 {}

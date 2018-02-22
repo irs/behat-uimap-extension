@@ -98,7 +98,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
             $value,
             'category_view',
             null,
-            new TableNode('| title | T |')
+            new TableNode([1 => ['title', 'T']])
         );
     }
 
@@ -117,7 +117,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
             'custom_option_multiselect',
             $value,
             'category_view',
-            new TableNode('| title | R |')
+            new TableNode([1 => ['title', 'R']])
         );
     }
 
@@ -135,7 +135,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context->additionallySelectOptionWithParams(
             'custom_option_multiselect',
             $value,
-            new TableNode('| title | F |')
+            new TableNode([1 => ['title', 'F']])
         );
     }
 
@@ -169,7 +169,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
             $path,
             'newsletter',
             null,
-            new TableNode('| suffix | S |')
+            new TableNode([1 => ['suffix', 'S']])
         );
     }
 
@@ -199,7 +199,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
             'sign_up_newsletter_param',
             $path,
             'newsletter',
-            new TableNode('| suffix | WE |')
+            new TableNode([1 => ['suffix', 'WE']])
         );
     }
 
@@ -215,7 +215,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context->attachFileToFieldWithParams(
             'sign_up_newsletter_param',
             $path,
-            new TableNode('| suffix | QWE |')
+            new TableNode([1 => ['suffix', 'QWE']])
         );
     }
 
@@ -240,7 +240,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForCheckOption("//html//div[@class='page-title']//input[@id='EYQ_open']");
 
         // act
-        $context->checkOption('open_title', 'category_title', null, new TableNode(' | part | EYQ |'));
+        $context->checkOption('open_title', 'category_title', null, new TableNode([['part', 'EYQ']]));
     }
 
     public function testCheckOptionInFiedsetWithParams()
@@ -249,7 +249,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForCheckOption("//html//div[@class='page-title']//input[@id='RRQ_open']");
 
         // act
-        $context->checkOptionInFiedsetWithParams('open_title', 'category_title', new TableNode(' | part | RRQ |'));
+        $context->checkOptionInFiedsetWithParams('open_title', 'category_title', new TableNode([['part', 'RRQ']]));
     }
 
     public function testCheckOptionWithParams()
@@ -258,7 +258,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForCheckOption("//html//div[@class='page-title']//input[@id='POW_open']");
 
         // act
-        $context->checkOptionWithParams('open_title', new TableNode(' | part | POW |'));
+        $context->checkOptionWithParams('open_title', new TableNode([['part', 'POW']]));
     }
 
     protected function _prepareContextForClickLink($expectedXpath)
@@ -284,7 +284,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->clickLink('learn_more', 'category_view', null, new TableNode('| productName | AKWQPIO |'));
+        $context->clickLink('learn_more', 'category_view', null, new TableNode([['productName', 'AKWQPIO']]));
     }
 
     public function testClickLinkInFiedsetWithParams()
@@ -295,7 +295,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->clickLinkInFiedsetWithParams('compare_clear_all', 'compare_products', new TableNode('| type | TTQUW |'));
+        $context->clickLinkInFiedsetWithParams('compare_clear_all', 'compare_products', new TableNode([['type', 'TTQUW']]));
     }
 
     public function testClickLinkWithParams()
@@ -306,7 +306,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->clickLinkWithParams('add_to_compare', new TableNode('| productName | asdwqqw98 |'));
+        $context->clickLinkWithParams('add_to_compare', new TableNode([['productName', 'asdwqqw98']]));
     }
 
     protected function _prepareContextForFillField($expectedValue, $expectedXpath)
@@ -334,7 +334,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillField('sign_up_newsletter_param', $value, 'newsletter', null, new TableNode('| suffix | YQTF |'));
+        $context->fillField('sign_up_newsletter_param', $value, 'newsletter', null, new TableNode([['suffix', 'YQTF']]));
     }
 
     public function testFillFieldInFiedsetWithParams()
@@ -346,7 +346,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillFieldInFiedsetWithParams('sign_up_newsletter_param', $value, 'newsletter', new TableNode('| suffix | YwwwQTF |'));
+        $context->fillFieldInFiedsetWithParams('sign_up_newsletter_param', $value, 'newsletter', new TableNode([['suffix', 'YwwwQTF']]));
     }
 
     public function testFillFieldWithParams()
@@ -358,7 +358,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillFieldWithParams('sign_up_newsletter_param', $value, new TableNode('| suffix | YQTF |'));
+        $context->fillFieldWithParams('sign_up_newsletter_param', $value, new TableNode([['suffix', 'YQTF']]));
     }
 
     public function testFillFields()
@@ -370,7 +370,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillFields(new TableNode("| sign_up_newsletter | $value |"));
+        $context->fillFields(new TableNode([["sign_up_newsletter", $value]]));
     }
 
     public function testFillFieldsIntoFieldset()
@@ -382,7 +382,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillFieldsIntoFieldset('newsletter', new TableNode("| sign_up_newsletter | $value |"));
+        $context->fillFieldsIntoFieldset('newsletter', new TableNode([["sign_up_newsletter", $value]]));
     }
 
     public function testFillFieldsIntoFieldsetOfTab()
@@ -394,7 +394,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->fillFieldsIntoFieldsetOfTab('newsletter', null, new TableNode("| sign_up_newsletter | $value |"));
+        $context->fillFieldsIntoFieldsetOfTab('newsletter', null, new TableNode([["sign_up_newsletter", $value]]));
     }
 
     protected function _prepareContextForPressButton($expectedXpath)
@@ -420,7 +420,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->pressButton('subscribe', 'newsletter', null, new TableNode('| subscription | QWOPK |'));
+        $context->pressButton('subscribe', 'newsletter', null, new TableNode([['subscription', 'QWOPK']]));
     }
 
     public function testPressButtonInFiedsetWithParams()
@@ -431,7 +431,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->pressButtonInFiedsetWithParams('subscribe', 'newsletter', new TableNode('| subscription | aoqw |'));
+        $context->pressButtonInFiedsetWithParams('subscribe', 'newsletter', new TableNode([['subscription', 'aoqw']]));
     }
 
     public function testPressButtonWithParams()
@@ -442,7 +442,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->pressButtonWithParams('subscribe', new TableNode('| subscription | aoqw |'));
+        $context->pressButtonWithParams('subscribe', new TableNode([['subscription', 'aoqw']]));
     }
 
     public function testSelectOption()
@@ -455,7 +455,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->selectOption('custom_option_multiselect', $value, 'category_view', null, new TableNode('| title | TQUWYTG |'));
+        $context->selectOption('custom_option_multiselect', $value, 'category_view', null, new TableNode([['title', 'TQUWYTG']]));
     }
 
     public function testSelectOptionInFiedsetWithParams()
@@ -468,7 +468,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->selectOptionInFiedsetWithParams('custom_option_multiselect', $value, 'category_view', new TableNode('| title | T25WYTG |'));
+        $context->selectOptionInFiedsetWithParams('custom_option_multiselect', $value, 'category_view', new TableNode([['title', 'T25WYTG']]));
     }
 
     public function testSelectOptionWithParams()
@@ -481,7 +481,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         );
 
         // act
-        $context->selectOptionWithParams('custom_option_multiselect', $value, new TableNode('| title | TQ74YTG |'));
+        $context->selectOptionWithParams('custom_option_multiselect', $value, new TableNode([['title', 'TQ74YTG']]));
     }
 
     protected function _prepareContextForUncheckOption($expectedXpath)
@@ -505,7 +505,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForUncheckOption("//html//div[@class='page-title']//input[@id='EYQ_open']");
 
         // act
-        $context->uncheckOption('open_title', 'category_title', null, new TableNode(' | part | EYQ |'));
+        $context->uncheckOption('open_title', 'category_title', null, new TableNode([['part', 'EYQ']]));
     }
 
     public function testUncheckOptionInFiedsetWithParams()
@@ -514,7 +514,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForUncheckOption("//html//div[@class='page-title']//input[@id='RRQ_open']");
 
         // act
-        $context->uncheckOptionInFiedsetWithParams('open_title', 'category_title', new TableNode(' | part | RRQ |'));
+        $context->uncheckOptionInFiedsetWithParams('open_title', 'category_title', new TableNode([['part', 'RRQ']]));
     }
 
     public function testUncheckOptionWithParams()
@@ -523,7 +523,7 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         $context = $this->_prepareContextForUncheckOption("//html//div[@class='page-title']//input[@id='POW_open']");
 
         // act
-        $context->uncheckOptionWithParams('open_title', new TableNode(' | part | POW |'));
+        $context->uncheckOptionWithParams('open_title', new TableNode([['part', 'POW']]));
     }
 
     public function testVisit()
@@ -540,11 +540,10 @@ class UimapContextTest extends \PHPUnit_Framework_TestCase
         // act
         $context->visit(
             'category_page_after_reindex',
-            new TableNode(<<<TABLE
-                | categoryUrl | sample |
-                | id          | 25     |
-TABLE
-            )
+            new TableNode([
+                ['categoryUrl', 'sample'],
+                ['id',          '25'    ]
+            ])
         );
     }
 

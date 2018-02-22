@@ -1,5 +1,5 @@
 {
-    "name":         "irs/behat-uimap-extension",
+    "name":         "irs/behat-uimap-extension-3",
     "description":  "Behat's extension allows to use Magento TAF uimap files in features.",
     "keywords":     ["Magento", "Behat", "TAF", "uimap"],
     "type":         "library",
@@ -13,7 +13,7 @@
     ],
 
     "require": {
-        "php":          ">=5.4.0",
+        "php":          ">=5.5.0",
         "behat/behat":  "^3.4",
         "behat/mink":   "^1.5",
         "zendframework/zend-cache": "2.1.*@dev"
