@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of the Behat UI map extension.
- * (c) 2013 Vadim Kusakin <vadim.irbis@gmail.com>
+ * (c) 2018 Vadim Kusakin <vadim.irbis@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,19 +13,25 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Behat\Behat\Extension\ExtensionInterface;
+use Behat\Testwork\ServiceContainer\ExtensionManager;
+use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 
 /**
  * UI map behat extension
  */
 class Extension implements ExtensionInterface
 {
+    public function getConfigKey()
+    {
+        return 'uimap';
+    }
+
     /**
      * Loads services definition to DI container
      *
      * @see \Behat\Behat\Extension\ExtensionInterface::load()
      */
-    public function load(array $config, ContainerBuilder $container)
+    public function load(ContainerBuilder $container, array $config)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__));
         $loader->load('services.xml');
@@ -37,7 +43,7 @@ class Extension implements ExtensionInterface
      *
      * @see \Behat\Behat\Extension\ExtensionInterface::getConfig()
      */
-    public function getConfig(ArrayNodeDefinition $builder)
+    public function configure(ArrayNodeDefinition $builder)
     {
         $builder
             ->children()
@@ -47,13 +53,12 @@ class Extension implements ExtensionInterface
                     ->end();
     }
 
-    /**
-     * Returns compiler passes
-     *
-     * @see \Behat\Behat\Extension\ExtensionInterface::getCompilerPasses()
-     */
-    public function getCompilerPasses()
+    public function process(ContainerBuilder $container)
     {
-        return array();
     }
+
+    public function initialize(ExtensionManager $extensionManager)
+    {
+    }
+
 }
