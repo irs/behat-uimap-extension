@@ -9,8 +9,6 @@
 
 namespace Irs\BehatUimapExtension;
 
-use Irs\BehatUimapExtension\Locator;
-
 class UimapSelectorTest extends \PHPUnit_Framework_TestCase
 {
     protected function _getSourceMock()
@@ -37,8 +35,6 @@ class UimapSelectorTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldTranslateLocatorToXpathUsingPageFromSource(Locator $locator)
     {
-        $this->markTestSkipped('Skipped due to mocker bug');
-        
         // prepare
         $xpath = rand();
 

@@ -77,7 +77,7 @@ create_customer_group:
             reset: //button[span='Reset']
             save_customer_group: //button[span='Save Customer Group']
         messages:
-            empty_group_name: //div[@id='advice-required-entry-customer_group_code' and contains(text(),'This is a required field.') and not(contains(@style,'display: none'))]
+            empty_group_name: "//div[@id='advice-required-entry-customer_group_code' and contains(text(),'This is a required field.') and not(contains(@style,'display: none'))]"
             confirmation_for_delete: Are you sure you want to do this?
 
 
@@ -93,5 +93,5 @@ edit_customer_group:
             delete_customer_group: //button[span='Delete Customer Group']
             save_customer_group: //button[span='Save Customer Group']
         messages:
-            empty_group_name: //div[@id='advice-required-entry-customer_group_code' and contains(text(),'This is a required field.') and not(contains(@style,'display: none'))]
+            empty_group_name: "//div[@id='advice-required-entry-customer_group_code' and contains(text(),'This is a required field.') and not(contains(@style,'display: none'))]"
             confirmation_for_delete: Are you sure you want to do this?

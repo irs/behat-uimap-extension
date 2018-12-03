@@ -352,8 +352,8 @@ create_tax_rule:
             save_and_continue_edit: //button[span='Save and Continue Edit']
         messages:
             code_already_exists: //li[normalize-space(@class)='error-msg' and contains(.,'Code already exists.')]
-            empty_required_field: //form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]
-            invalid_field_value: //form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]
+            empty_required_field: "//form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            invalid_field_value: "//form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]"
 
 
 # Edit Tax Rule page
@@ -382,7 +382,7 @@ edit_tax_rule:
             save_rule: //button[span='Save Rule']
             save_and_continue_edit: //button[span='Save and Continue Edit']
         messages:
-            empty_required_field: //form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]
-            invalid_field_value: //form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]
+            empty_required_field: "//form[@id='edit_form']//td//div[text()='This is a required field.' and not(contains(@style,'display: none;'))]"
+            invalid_field_value: "//form[@id='edit_form']//input//following-sibling::div[contains(@class, 'validation-advice') and not(contains(@style,'display: none;'))]"
             delete_confirmation: "Are you sure you want to do this?"
             code_already_exists: //li[normalize-space(@class)='error-msg' and contains(.,'Code already exists.')]

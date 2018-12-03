@@ -230,7 +230,7 @@ class TafSource implements PageSourceInterface, CachingInterface
         $pages = $this->loadFromCache($fileName) ?: array();
 
         if (!$pages) {
-            $content = Yaml::parse($fileName);
+            $content = Yaml::parse(file_get_contents($fileName));
             try {
                 foreach ($content as $key => $description) {
                     $page = $this->convertArrayToPage($key, $description);

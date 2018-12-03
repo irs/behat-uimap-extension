@@ -118,7 +118,7 @@ create_cms_page:
                                     fields:
                                         anchor_custom_text: //input[@name='parameters[anchor_text]']
                                         anchor_custom_title: //input[@name='parameters[title]']
-                                        number_of_products_to_display: //input[@name='parameters[products_count]']
+                                        number_of_products_to_display: "//input[@name='parameters[products_count]']"
                                         number_of_products_to_display_compared_and_viewed: //input[@name='parameters[page_size]']
                                         cache_lifetime: //input[@name='parameters[cache_lifetime]']
                                     buttons:

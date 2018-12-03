@@ -267,7 +267,7 @@ class TafTest extends \PHPUnit_Framework_TestCase
             $items = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
             foreach ($items as $item) {
                 if ($item->isFile() && $item->isReadable() && 'yml' == $item->getExtension()) {
-                    foreach (Yaml::parse($item->getPathname()) as $key => $value) {
+                    foreach (Yaml::parse(file_get_contents($item->getPathname())) as $key => $value) {
                         $pages[$key] = $value;
                     }
                 }
