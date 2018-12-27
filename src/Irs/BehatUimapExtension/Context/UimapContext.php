@@ -89,7 +89,7 @@ trait UimapContext
      * @return Mink
      * @throws \RuntimeException is Mink is undefined
      */
-    protected function getMink()
+    public function getMink()
     {
         if (!$this->mink instanceof Mink) {
             throw new \RuntimeException('Mink is not defined; context was not properly initialized.');
@@ -115,7 +115,7 @@ trait UimapContext
      *
      * @return mixed
      */
-    protected function getMinkParameter($name)
+    public function getMinkParameter($name)
     {
         return isset($this->minkParameters[$name]) ? $this->minkParameters[$name] : null;
     }
@@ -126,7 +126,7 @@ trait UimapContext
      * @param string|null $name name of the session OR active session will be used
      * @return WebAssert
      */
-    protected function assertSession($name = null)
+    public function assertSession($name = null)
     {
         return $this->getMink()->assertSession($name);
     }
@@ -368,9 +368,9 @@ trait UimapContext
      *
      * @return Session
      */
-    protected function getSession()
+    public function getSession($name = null)
     {
-        return $this->getMink()->getSession();
+        return $this->getMink()->getSession($name);
     }
 
     protected function createLocatorForCurrentPage($key = null, $type = null,
@@ -792,7 +792,7 @@ trait UimapContext
      * @param string $path
      * @return string
      */
-    protected function locatePath($path)
+    public function locatePath($path)
     {
         $startUrl = rtrim($this->getMinkParameter('base_url'), '/') . '/';
 
