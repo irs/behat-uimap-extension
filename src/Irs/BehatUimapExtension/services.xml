@@ -38,7 +38,7 @@
 
         <service id="irs.uimap.context.initializer" class="%irs.uimap.context.initializer.class%">
             <argument type="service" id="irs.uimap.page.source.taf"/>
-            <tag name="behat.context.initializer"/>
+            <tag name="context.initializer"/>
         </service>
 
         <service id="irs.uimap.page.source.cache.adapter" class="%irs.uimap.page.source.cache.adapter.class%"/>
