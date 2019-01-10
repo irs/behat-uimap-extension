@@ -38,7 +38,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $extension->load($container, $config);
 
         // assert
-        $this->assertNotEmpty($container->findTaggedServiceIds('behat.mink.selector'));
+        $this->assertNotEmpty($container->findTaggedServiceIds('mink.selector'));
     }
 
     /**
