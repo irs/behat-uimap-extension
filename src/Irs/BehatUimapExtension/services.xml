@@ -25,7 +25,7 @@
 
         <service id="irs.uimap.selector" class="%irs.uimap.selector.class%">
             <argument type="service" id="irs.uimap.page.source.taf"/>
-            <tag name="behat.mink.selector" alias="uimap"/>
+            <tag name="mink.selector" alias="uimap"/>
         </service>
 
         <service id="irs.uimap.page.source.taf" class="%irs.uimap.page.source.taf.class%">
